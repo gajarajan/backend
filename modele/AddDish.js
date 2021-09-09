@@ -8,10 +8,8 @@ const AddDishSchema = new mongoose.Schema({
         type: String
     },
     dishAdd: [{
-        dishid: {
-            type: Number,
-        },
-        dish: {
+
+        dishId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "dish",
         },
@@ -32,7 +30,11 @@ const AddDishSchema = new mongoose.Schema({
             default: Date.now
 
         }
-    }]
+    }],
+    totalbill: {
+        type: Number,
+
+    }
 });
 
 const AddDish = mongoose.model('AddDish', AddDishSchema, 'adddish');

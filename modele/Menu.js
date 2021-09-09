@@ -23,8 +23,18 @@ const DishSchema = new mongoose.Schema({
     data: {
         type: Date,
         default: Date.now
+    },
+    count: {
+        type: Number,
+        required: true
+    },
+    // customerid: [{
+    //     userid: {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: "user"
+    //     }
 
-    }
+    // }]
 });
 
 const Dish = mongoose.model('Dish', DishSchema, 'dish');

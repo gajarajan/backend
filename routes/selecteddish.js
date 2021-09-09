@@ -10,4 +10,11 @@ router.post(
     Auth.auth,
     adddishModule.addDish
 );
+router.delete(
+    '/removedish/:id',
+
+    Auth.auth,
+    adddishModule.removeDish
+);
+
 module.exports = router;

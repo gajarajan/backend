@@ -9,7 +9,8 @@ router.post(
         check('image', 'image is required').not().isEmpty(),
         check('dishname', 'dishname is required').not().isEmpty(),
         check('hotel', 'hotel is required').not().isEmpty(),
-        check('amount', 'amount is required').not().isEmpty()
+        check('amount', 'amount is required').not().isEmpty(),
+        check('count', 'amount is required').not().isEmpty()
 
     ],
     dishModule.addDish
@@ -21,7 +22,7 @@ router.put('/update/:id', [
     check('image', 'image is required').not().isEmpty(),
     check('dishname', 'dishname is required').not().isEmpty(),
     check('hotel', 'hotel is required').not().isEmpty(),
-    check('amount', 'amount is required').not().isEmpty()
-
+    check('amount', 'amount is required').not().isEmpty(),
+    check('count', 'amount is required').not().isEmpty()
 ], dishModule.updateDish);
 module.exports = router;

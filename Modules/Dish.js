@@ -5,7 +5,7 @@ exports.addDish = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errore: errors.array() });
     }
-    const { image, dishname, hotel, amount, rating } = req.body;
+    const { image, dishname, hotel, amount, rating, count } = req.body;
     try {
         let dish = await Dish.findOne({ dishname });
         if (dish) {
@@ -16,7 +16,8 @@ exports.addDish = async (req, res) => {
             dishname,
             hotel,
             amount,
-            rating
+            rating,
+            count
         });
 
         await dish.save();
@@ -54,12 +55,13 @@ exports.deleteDish = async (req, res) => {
 exports.updateDish = async (req, res) => {
     const id = req.params.id;
 
-    var response = await User.findByIdAndUpdate(id, {
+    var response = await Dish.findByIdAndUpdate(id, {
         image: req.body.username,
         dishname: req.body.dishname,
         hotel: req.body.hotel,
         amount: req.body.amount,
         rating: req.body.rating,
+        count: req.body.count,
     })
     res.send(response);
 }
@@ -67,6 +69,9 @@ exports.findDish = async (req, res) => {
     try {
         const id = req.params.id;
         const dish = await Dish.findById(id);
+        if (!dish) {
+            return res.status(400).json({ errors: [{ msg: "Dish no exits" }] });
+        }
         res.json(dish);
     } catch (err) {
         console.error(err.message);

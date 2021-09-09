@@ -2,7 +2,7 @@ const User = require('../modele/User');
 const { validationResult } = require("express-validator/check");
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
-
+const gravatar = require("gravatar");
 
 exports.userLogin = async (req, res, next) => {
     const errors = validationResult(req);
@@ -38,4 +38,26 @@ exports.userLogin = async (req, res, next) => {
         return res.status(500).send("server error");
     }
 
+}
+exports.changeDetial = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { name, email, passward, address, number } = req.body;
+        const avatar = gravatar.url(email, { s: "200", r: "pg", d: "mm" });
+        const salt = await bcrypt.genSalt(10);
+        passward = await bcrypt.hash(passward, salt);
+        var response = await User.findByIdAndUpdate(id, {
+            name,
+            email,
+            avatar,
+            passward,
+            address,
+            number
+        })
+        res.send(response);
+    }
+    catch {
+        console.log(err.message);
+        return res.status(500).send("server error");
+    }
 }
